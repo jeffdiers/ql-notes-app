@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { Item } from './types';
 import { WorkspaceContext } from './workspace';
 
+import '../styles/directory.css'
+
 
 interface DirectoryViewProps {
     directory: Item;
@@ -32,10 +34,10 @@ const DirectoryView: React.FC<DirectoryViewProps> = ({ directory }) => {
         <div>
             <button onClick={handleAddNote}>New Note</button>
             <button onClick={handleAddDirectory}>New Directory</button>
-            <table>
+            <table className="dirSection">
                 <tbody>
                     {directory.items?.map((childItem, index) => (
-                        <tr key={index} onClick={() => handleItemClick(childItem)}>
+                        <tr className="dirItem" key={index} onClick={() => handleItemClick(childItem)}>
                             <td>{childItem.name}</td>
                         </tr>
                     ))}

@@ -43,7 +43,6 @@ The `Workspace` component provides a `React.Context` through which child compone
 | **Field**      | **Type**     | **Description**                                                                            |
 |----------------|--------------|--------------------------------------------------------------------------------------------|
 | currentItem    | Item \| null | The current item rendered in the `Workspace`.                                              |
-| itemStack      | Item[]       | An array of Directories which enclose the `currentItem`. You can think of this as a path.  |
 | setCurrentItem | Function     | Sets the current item to a different item.                                                 |
 | addNote        | Function     | Creates a new note given a `fileName` and `noteText`, if the `currentItem` is a directory. |
 | addDirectory   | Function     | Creates a new directory given a `newDirName`, if the `currentItem` is a directory.         |

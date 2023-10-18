@@ -2,6 +2,8 @@ import React, { useState, useContext } from 'react';
 import { Item } from './types';
 import { WorkspaceContext } from './workspace';
 
+import '../styles/note.css'
+
 interface NoteViewProps {
     note: Item;
 }
@@ -26,7 +28,11 @@ const NoteView: React.FC<NoteViewProps> = ({ note }) => {
     };
 
     return (
-        <div>
+        <div className="noteSection"  onClick={() => {
+            if (!isEditing) {
+                setIsEditing(true)}
+            }
+        }>
             {isEditing ? (
                 <div>
                     <input
@@ -37,7 +43,7 @@ const NoteView: React.FC<NoteViewProps> = ({ note }) => {
                     <button onClick={handleNoteSubmit}>Save</button>
                 </div>
             ) : (
-                <div onClick={() => setIsEditing(true)}>
+                <div>
                     {text}
                 </div>
             )}
