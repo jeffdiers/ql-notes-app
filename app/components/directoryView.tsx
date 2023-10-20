@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { Item } from "./types";
 import { WorkspaceContext } from "./workspace";
+import DirectoryIcon from "./directoryIcon";
+import NoteIcon from "./noteIcon";
 
 import "../styles/directory.css";
 
@@ -64,7 +66,8 @@ const DirectoryView: React.FC<DirectoryViewProps> = ({ directory }) => {
           {directory.items?.map((childItem, index) => (
             <tr className="dirItem" key={index}>
               <td onClick={() => handleItemClick(childItem)}>
-                {childItem.name}
+                {childItem.type == "directory" && <DirectoryIcon />}
+                {childItem.type == "note" && <NoteIcon />} {childItem.name}
               </td>
               <td>
                 <input
