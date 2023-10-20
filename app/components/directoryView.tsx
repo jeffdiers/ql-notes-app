@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { Item } from "./types";
-import { WorkspaceContext } from "./workspace";
+import { WorkspaceContext, Item } from "../containers/workspace";
 import DirectoryIcon from "./directoryIcon";
 import NoteIcon from "./noteIcon";
 
@@ -33,7 +32,7 @@ const DirectoryView: React.FC<DirectoryViewProps> = ({ directory }) => {
   };
 
   const handleAddNote = () => {
-    let fileName = null;
+    let fileName: string | null = null;
     let isUnique = false;
     while (!fileName || !isUnique) {
       fileName = window.prompt("Enter the name of the new note:");
@@ -53,7 +52,7 @@ const DirectoryView: React.FC<DirectoryViewProps> = ({ directory }) => {
   };
 
   const handleAddDirectory = () => {
-    let fileName = null;
+    let fileName: string | null = null;
     let isUnique = false;
     while (!fileName || !isUnique) {
       fileName = window.prompt("Enter the name of the new directory:");

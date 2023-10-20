@@ -1,4 +1,4 @@
-import { Item } from "../components/types";
+import { Item } from "../containers/workspace";
 
 // Helper function to get file path of an item
 export const getFilePath = (item: Item): string[] => {

@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Item } from "./types";
-import { WorkspaceContext } from "./workspace";
+import { WorkspaceContext, Item } from "../containers/workspace";
 
 import "../styles/note.css";
 
