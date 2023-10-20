@@ -62,6 +62,7 @@ export interface WorkspaceContextProps {
   setSelectedItems: (items: string[]) => void;
   deleteSelectedItems: () => void;
   deleteItem: (item: Item) => void;
+  updateChildName: (newName: string, childIndex: number) => void;
 }
 
 export const WorkspaceContext = React.createContext<WorkspaceContextProps>({
@@ -75,6 +76,7 @@ export const WorkspaceContext = React.createContext<WorkspaceContextProps>({
   setSelectedItems: (items: string[]) => {},
   deleteSelectedItems: () => {},
   deleteItem: (item: Item) => {},
+  updateChildName: (newName: string, childIndex: number) => {},
 });
 
 export function Workspace() {
@@ -191,6 +193,16 @@ export function Workspace() {
     });
   }, []);
 
+  const updateChildName = useCallback((newName: string, childIndex: number) => {
+    setCurrentItem((prevItem) => {
+      const newItem = _.cloneDeep(prevItem);
+      if (newItem.items) {
+        newItem.items[childIndex].name = newName;
+      }
+      return newItem;
+    });
+  }, []);
+
   return (
     <div className="workspace">
       <WorkspaceContext.Provider
@@ -205,6 +217,7 @@ export function Workspace() {
           setSelectedItems,
           deleteSelectedItems,
           deleteItem,
+          updateChildName,
         }}
       >
         <ItemView {...currentItem} />

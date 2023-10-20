@@ -18,6 +18,7 @@ const DirectoryView: React.FC<DirectoryViewProps> = ({ directory }) => {
     selectedItems,
     selectItem,
     deleteItem,
+    updateChildName,
   } = useContext(WorkspaceContext);
 
   const handleAddNote = () => {
@@ -48,6 +49,12 @@ const DirectoryView: React.FC<DirectoryViewProps> = ({ directory }) => {
     }
   };
 
+  const handleRenameItem = (item: Item, index: number) => {
+    const newName = window.prompt("Enter the new name:");
+    if (newName === null) return;
+    updateChildName(newName, index);
+  };
+
   return (
     <div>
       <button onClick={handleAddNote}>New Note</button>
@@ -67,6 +74,11 @@ const DirectoryView: React.FC<DirectoryViewProps> = ({ directory }) => {
                   )}
                   onChange={() => handleSelectItem(childItem)}
                 />
+              </td>
+              <td>
+                <button onClick={() => handleRenameItem(childItem, index)}>
+                  Edit Item Name
+                </button>
               </td>
               <td>
                 <button onClick={() => handleDeleteItem(childItem)}>
