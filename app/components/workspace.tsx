@@ -3,7 +3,7 @@ import { Item } from "./types";
 import NoteView from "./noteView";
 import DirectoryView from "./directoryView";
 
-import _, { set } from "lodash";
+import _ from "lodash";
 
 import "../styles/workspace.css";
 
@@ -41,6 +41,7 @@ export function ItemView(item: Item) {
     <div>
       <h2>Current Item: {item.name}</h2>
       <h3>Type: {item.type}</h3>
+      <span>Path: /{getFilePath(item).join("/")}</span>
       <div className="item">
         {item.parent != null && (
           <button onClick={goToEnclosingFolder}>Previous Directory</button>
