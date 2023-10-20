@@ -7,7 +7,11 @@ import _, { set } from "lodash";
 
 import "../styles/workspace.css";
 
-import { getFilePath, deleteItemsRecursively } from "../util/helpers";
+import {
+  getFilePath,
+  deleteItemsRecursively,
+  insertItemSorted,
+} from "../util/helpers";
 
 export function ItemView(item: Item) {
   const {
@@ -114,7 +118,7 @@ export function Workspace() {
           note: noteText,
           parent: newItem,
         };
-        newItem.items = newItem.items ? [...newItem.items, newNote] : [newNote];
+        newItem.items = insertItemSorted(newItem.items, newNote);
       }
       return newItem;
     });
@@ -131,7 +135,7 @@ export function Workspace() {
           items: [],
           parent: newItem,
         };
-        newItem.items = newItem.items ? [...newItem.items, newDir] : [newDir];
+        newItem.items = insertItemSorted(newItem.items, newDir);
       }
       return newItem;
     });
