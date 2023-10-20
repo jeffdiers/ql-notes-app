@@ -30,3 +30,42 @@ export const deleteItemsRecursively = (
   }
   return item;
 };
+
+// Helper function to insert a new item at the correct position
+export const insertItemSorted = (
+  items: Item[] | undefined,
+  itemToInsert: Item
+): Item[] => {
+  // If the items array is empty, return the item to insert
+  if (!items) return [itemToInsert];
+
+  // Split the items into directories and notes
+  const directories = items.filter((item) => item.type === "directory");
+  const notes = items.filter((item) => item.type === "note");
+
+  switch (itemToInsert.type) {
+    case "directory":
+      // If the item to insert is a directory, insert it into the directories array alphabetically
+      const insertDirectoryIndex = directories.findIndex(
+        (item) => item.name.localeCompare(itemToInsert.name) > 0
+      );
+      insertDirectoryIndex === -1
+        ? directories.push(itemToInsert)
+        : directories.splice(insertDirectoryIndex, 0, itemToInsert);
+
+      break;
+    case "note":
+      // If the item to insert is a directory, insert it into the directories array alphabetically
+      const insertNoteIndex = notes.findIndex(
+        (item) => item.name.localeCompare(itemToInsert.name) > 0
+      );
+      insertNoteIndex === -1
+        ? notes.push(itemToInsert)
+        : notes.splice(insertNoteIndex, 0, itemToInsert);
+
+      break;
+  }
+
+  // Concatenate the sorted arrays with directories first
+  return [...directories, ...notes];
+};

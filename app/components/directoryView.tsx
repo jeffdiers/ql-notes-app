@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { Item } from "./types";
 import { WorkspaceContext } from "./workspace";
+import DirectoryIcon from "./directoryIcon";
+import NoteIcon from "./noteIcon";
 
 import "../styles/directory.css";
 
@@ -21,18 +23,50 @@ const DirectoryView: React.FC<DirectoryViewProps> = ({ directory }) => {
     updateChildName,
   } = useContext(WorkspaceContext);
 
+  const isFileNameUnique = (fileName: string) => {
+    // Check if an item with the same name already exists
+    const existingNote = directory.items?.find(
+      (item) => item.name === fileName
+    );
+
+    return !existingNote;
+  };
+
   const handleAddNote = () => {
-    const fileName = window.prompt("Enter the name of the new note:");
-    if (fileName === null) return;
+    let fileName = null;
+    let isUnique = false;
+    while (!fileName || !isUnique) {
+      fileName = window.prompt("Enter the name of the new note:");
+      if (fileName === null) return;
+      isUnique = isFileNameUnique(fileName);
+      if (!isUnique) {
+        alert(
+          "An item with the same name already exists. Please choose a different name."
+        );
+      }
+    }
+
     const noteText = window.prompt("Enter the text of the new note:");
     if (noteText === null) return;
+
     addNote(fileName, noteText);
   };
 
   const handleAddDirectory = () => {
-    const dirName = window.prompt("Enter the name of the new directory:");
-    if (dirName === null) return;
-    addDirectory(dirName);
+    let fileName = null;
+    let isUnique = false;
+    while (!fileName || !isUnique) {
+      fileName = window.prompt("Enter the name of the new directory:");
+      if (fileName === null) return;
+      isUnique = isFileNameUnique(fileName);
+      if (!isUnique) {
+        alert(
+          "An item with the same name already exists. Please choose a different name."
+        );
+      }
+    }
+
+    addDirectory(fileName);
   };
 
   const handleItemClick = (item: Item) => {
@@ -64,7 +98,8 @@ const DirectoryView: React.FC<DirectoryViewProps> = ({ directory }) => {
           {directory.items?.map((childItem, index) => (
             <tr className="dirItem" key={index}>
               <td onClick={() => handleItemClick(childItem)}>
-                {childItem.name}
+                {childItem.type == "directory" && <DirectoryIcon />}
+                {childItem.type == "note" && <NoteIcon />} {childItem.name}
               </td>
               <td>
                 <input

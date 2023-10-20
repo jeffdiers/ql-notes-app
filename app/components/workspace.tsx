@@ -3,11 +3,15 @@ import { Item } from "./types";
 import NoteView from "./noteView";
 import DirectoryView from "./directoryView";
 
-import _, { set } from "lodash";
+import _ from "lodash";
 
 import "../styles/workspace.css";
 
-import { getFilePath, deleteItemsRecursively } from "../util/helpers";
+import {
+  getFilePath,
+  deleteItemsRecursively,
+  insertItemSorted,
+} from "../util/helpers";
 
 export function ItemView(item: Item) {
   const {
@@ -37,6 +41,7 @@ export function ItemView(item: Item) {
     <div>
       <h2>Current Item: {item.name}</h2>
       <h3>Type: {item.type}</h3>
+      <span>Path: /{getFilePath(item).join("/")}</span>
       <div className="item">
         {item.parent != null && (
           <button onClick={goToEnclosingFolder}>Previous Directory</button>
@@ -114,7 +119,7 @@ export function Workspace() {
           note: noteText,
           parent: newItem,
         };
-        newItem.items = newItem.items ? [...newItem.items, newNote] : [newNote];
+        newItem.items = insertItemSorted(newItem.items, newNote);
       }
       return newItem;
     });
@@ -131,7 +136,7 @@ export function Workspace() {
           items: [],
           parent: newItem,
         };
-        newItem.items = newItem.items ? [...newItem.items, newDir] : [newDir];
+        newItem.items = insertItemSorted(newItem.items, newDir);
       }
       return newItem;
     });
