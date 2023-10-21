@@ -2,14 +2,7 @@
 
 import React from "react";
 import { Workspace } from "./workspace";
-
-function Header() {
-  return (
-    <header>
-      <h1>Quilt Labs Notes Filesystem App</h1>
-    </header>
-  );
-}
+import Header from "../components/header";
 
 export default function ReactApp() {
   return (

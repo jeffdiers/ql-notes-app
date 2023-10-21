@@ -2,8 +2,9 @@ import React, { useContext, useCallback } from "react";
 import NoteView from "./noteView";
 import DirectoryView from "./directoryView";
 import { WorkspaceContext, Item } from "../containers/workspace";
+import Button, { BUTTON_TYPE_CLASSES } from "./button";
 
-import _ from "lodash";
+import "../styles/itemView.css";
 
 import { getFilePath } from "../util/helpers";
 
@@ -32,17 +33,28 @@ const ItemView = (item: Item) => {
   };
 
   return (
-    <div>
-      <h2>Current Item: {item.name}</h2>
-      <h3>Type: {item.type}</h3>
-      <span>Path: /{getFilePath(item).join("/")}</span>
+    <div className="item-view">
+      <div className="item-view-header">
+        <div className="item-view-title">
+          <h2>Current Item: {item.name}</h2>
+          <h3>Type: {item.type}</h3>
+          <span>Path: /{getFilePath(item).join("/")}</span>
+        </div>
+        <div className="item-view-buttons">
+          {item.parent != null && (
+            <Button onClick={goToEnclosingFolder}>Previous Directory</Button>
+          )}
+          {selectedItems.length > 0 && (
+            <Button
+              buttonType={BUTTON_TYPE_CLASSES.danger}
+              onClick={handleDeleteSelected}
+            >
+              Delete Selected
+            </Button>
+          )}
+        </div>
+      </div>
       <div className="item">
-        {item.parent != null && (
-          <button onClick={goToEnclosingFolder}>Previous Directory</button>
-        )}
-        {selectedItems.length > 0 && (
-          <button onClick={handleDeleteSelected}>Delete Selected</button>
-        )}
         {item.type == "directory" && <DirectoryView directory={item} />}
         {item.type == "note" && <NoteView note={item} />}
       </div>

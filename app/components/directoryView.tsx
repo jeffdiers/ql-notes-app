@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { WorkspaceContext, Item } from "../containers/workspace";
 import DirectoryIcon from "./directoryIcon";
 import NoteIcon from "./noteIcon";
+import Button, { BUTTON_TYPE_CLASSES } from "./button";
 
 import "../styles/directory.css";
 
@@ -89,35 +90,62 @@ const DirectoryView: React.FC<DirectoryViewProps> = ({ directory }) => {
   };
 
   return (
-    <div>
-      <button onClick={handleAddNote}>New Note</button>
-      <button onClick={handleAddDirectory}>New Directory</button>
-      <table className="dirSection">
+    <div className="table-container">
+      <div className="button-container">
+        <Button onClick={handleAddNote}>New Note</Button>
+        <Button onClick={handleAddDirectory}>New Directory</Button>
+      </div>
+      <table className="table">
+        <thead>
+          <tr>
+            <th className="table-filename">Filename</th>
+            <th className="table-select">Select</th>
+            <th className="table-rename">Rename</th>
+            <th className="table-delete">Delete</th>
+          </tr>
+        </thead>
         <tbody>
           {directory.items?.map((childItem, index) => (
-            <tr className="dirItem" key={index}>
-              <td onClick={() => handleItemClick(childItem)}>
-                {childItem.type == "directory" && <DirectoryIcon />}
-                {childItem.type == "note" && <NoteIcon />} {childItem.name}
+            <tr key={index}>
+              <td
+                onClick={() => handleItemClick(childItem)}
+                className="table-filename"
+              >
+                {childItem.type == "directory" && (
+                  <DirectoryIcon className="table-filename-icon" />
+                )}
+                {childItem.type == "note" && (
+                  <NoteIcon className="table-filename-icon" />
+                )}
+                <span className="table-filename-text">{childItem.name}</span>
               </td>
-              <td>
-                <input
-                  type="checkbox"
-                  checked={selectedItems.includes(
-                    getFilePath(childItem).join("/")
-                  )}
-                  onChange={() => handleSelectItem(childItem)}
-                />
+              <td className="table-select">
+                <label className="custom-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={selectedItems.includes(
+                      getFilePath(childItem).join("/")
+                    )}
+                    onChange={() => handleSelectItem(childItem)}
+                  />
+                  <span></span>
+                </label>
               </td>
-              <td>
-                <button onClick={() => handleRenameItem(childItem, index)}>
-                  Edit Item Name
-                </button>
+              <td className="table-rename">
+                <Button
+                  buttonType={BUTTON_TYPE_CLASSES.inverted}
+                  onClick={() => handleRenameItem(childItem, index)}
+                >
+                  Edit
+                </Button>
               </td>
-              <td>
-                <button onClick={() => handleDeleteItem(childItem)}>
-                  Delete Item
-                </button>
+              <td className="table-delete">
+                <Button
+                  buttonType={BUTTON_TYPE_CLASSES.danger}
+                  onClick={() => handleDeleteItem(childItem)}
+                >
+                  Delete
+                </Button>
               </td>
             </tr>
           ))}

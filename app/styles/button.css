@@ -1,0 +1,27 @@
+.base {
+  display: inline-block;
+  padding: 0.16rem 1rem;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background-color: #3498db;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.base:hover {
+  background-color: #2980b9;
+}
+
+.danger {
+  color: #fff;
+  background-color: #f44336;
+}
+
+.danger:hover {
+  background-color: #e53935;
+}
