@@ -1,15 +1,112 @@
-.dirSection {
-    width: 100%;
+.button-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
 }
 
-.dirItem {
-    width: 100%;
-    border: 1px solid black;
-    transition: background-color 0.3s;
-    margin: 8px;
-    height: 30px;
+.button-container Button {
+  margin-right: 0.5rem;
 }
 
-.dirItem:hover {
-    background-color: #e0e0e0;
+.table-container {
+  width: 100%;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 1.5;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+.table th,
+.table td {
+  padding: 0.5rem;
+  text-align: left;
+  vertical-align: top;
+  border: none;
+}
+
+.table th {
+  font-weight: bold;
+}
+
+.table tr {
+  transition: background-color 0.3s;
+}
+
+.table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.table-filename {
+  cursor: pointer;
+  /* width: 100%; */
+  display: flex;
+  align-items: center;
+}
+
+.table-filename-icon {
+  margin-right: 0.5rem;
+}
+
+.table-filename-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table-select {
+  width: 10%;
+  /* display: flex; */
+  /* align-items: center; */
+}
+
+.table-rename {
+  width: 20%;
+}
+
+.table-delete {
+  width: 20%;
+}
+
+/* Custom checkbox */
+.custom-checkbox {
+  position: relative;
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+}
+
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.custom-checkbox span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+.custom-checkbox input:checked + span:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.25rem;
+  height: 0.25rem;
+  background-color: #333;
+  border-radius: 0.1rem;
 }

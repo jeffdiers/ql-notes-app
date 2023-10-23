@@ -1,12 +1,11 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import { ItemView, WorkspaceContext, WorkspaceContextProps } from "./workspace"; // Update the import path if needed
-import { Item } from "./types";
-
-// Mock the window.confirm function
-const originalConfirm = window.confirm;
-window.confirm = jest.fn(() => true);
+import {
+  Workspace,
+  WorkspaceContext,
+  WorkspaceContextProps,
+} from "./workspace"; // Update the import path if needed
 
 // Create a mock function for your context
 const mockSetCurrentItem = jest.fn();
@@ -17,6 +16,7 @@ const mockSelectItem = jest.fn();
 const mockSetSelectedItems = jest.fn();
 const mockDeleteSelectedItems = jest.fn();
 const mockDeleteItem = jest.fn();
+const mockUpdateChildName = jest.fn();
 
 const mockContextValue: WorkspaceContextProps = {
   currentItem: {
@@ -36,6 +36,20 @@ const mockContextValue: WorkspaceContextProps = {
   setSelectedItems: mockSetSelectedItems,
   deleteSelectedItems: mockDeleteSelectedItems,
   deleteItem: mockDeleteItem,
+  updateChildName: mockUpdateChildName,
+};
+
+// Mock the window.confirm function
+const originalConfirm = window.confirm;
+window.confirm = jest.fn(() => true);
+
+// Create a custom render function with the context provider
+const customRender = (ui: React.ReactElement) => {
+  return render(
+    <WorkspaceContext.Provider value={mockContextValue}>
+      {ui}
+    </WorkspaceContext.Provider>
+  );
 };
 
 beforeEach(() => {
@@ -44,11 +58,7 @@ beforeEach(() => {
 
 describe("Workspace Component", () => {
   it("should render the Workspace component", () => {
-    render(
-      <WorkspaceContext.Provider value={mockContextValue}>
-        <ItemView {...(mockContextValue.currentItem as Item)} />
-      </WorkspaceContext.Provider>
-    );
+    customRender(<Workspace />);
 
     // You can add assertions here to check if the component renders as expected
     // For example:

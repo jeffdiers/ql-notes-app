@@ -1,0 +1,32 @@
+.item-view {
+  margin-bottom: 1rem;
+}
+
+.item-view-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.item-view h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.item-view h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.item-view-buttons {
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.item-view-buttons Button {
+  margin-right: 0.5rem;
+}
+
+.item {
+  width: 100%;
+}
